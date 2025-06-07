@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import Card from "../../atoms/Card"
 import Button from "../../atoms/Button"
 import Tooltip from "../../atoms/Tooltip"
@@ -5,6 +6,7 @@ import { IMAGE_URL } from "../../../constant"
 import type { Skip } from "../../../types/skip"
 import InfoIcon from '../../../assets/InfoIcon.png'
 import './Skiplist.css'
+
 
 type SkipListProps = {
     selectedSkip: Skip | null;
@@ -14,13 +16,20 @@ type SkipListProps = {
 }
 
 export default function SkipList({ selectedSkip, setSelectedSkip, setPreviewOpen, skipList }: SkipListProps) {
+    const handleSkipSelect = useCallback((skip: Skip) => {
+        setSelectedSkip(skip);
+    }, [setSelectedSkip]);
+
+    const handlePreviewOpen = useCallback((skip: Skip) => {
+        setPreviewOpen(skip);
+    }, [setPreviewOpen]);
     return (
         <div className='container-skip-list'>
             {skipList.map((skip) => (
                 <Card
                     title={`${skip.size} Yards Skip`}
                     image={IMAGE_URL}
-                    onClick={() => setSelectedSkip(skip)}
+                    onClick={() => handleSkipSelect(skip)}
                     selected={selectedSkip === skip}
                     key={skip.id}
                     chip={skip.size}
@@ -38,7 +47,7 @@ export default function SkipList({ selectedSkip, setSelectedSkip, setPreviewOpen
                         </Tooltip>
                     </div>
 
-                    <Button onClick={() => setPreviewOpen(skip)}>Click me</Button>
+                    <Button onClick={() => handlePreviewOpen(skip)}>Click me</Button>
                 </Card>
             ))}
         </div>

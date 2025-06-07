@@ -6,7 +6,7 @@ interface TooltipProps {
   content: React.ReactNode;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ children, content }) => {
+const Tooltip = React.memo<TooltipProps>(({ children, content }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -19,6 +19,8 @@ const Tooltip: React.FC<TooltipProps> = ({ children, content }) => {
       {isVisible && <div className="tooltip">{content}</div>}
     </div>
   );
-};
+});
+
+Tooltip.displayName = 'Tooltip';
 
 export default Tooltip; 

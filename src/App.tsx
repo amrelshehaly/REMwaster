@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import type { Skip } from './types/skip'
 import { useGetSkip } from './hooks/useGetSkip'
 import SnackBar from './components/atoms/SnackBar'
-import Loading from './assets/loader.gif'
 import SkipPreview from './components/molecules/SkipPreview'
 import SkipList from './components/molecules/SkipList'
+import Loader from './components/atoms/Loader'
 
 function App() {
   const { skipList, loading, error } = useGetSkip();
@@ -13,6 +13,14 @@ function App() {
   const [previewOpen, setPreviewOpen] = useState<Skip | undefined>(undefined);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const handleCloseSnackBar = useCallback(() => {
+    setSnackBarOpen(false);
+  }, []);
+
+  const handleSetPreviewOpen = useCallback((skip?: Skip) => {
+    setPreviewOpen(skip);
+  }, []);
 
   useEffect(() => {
     if (previewOpen) {
@@ -28,16 +36,16 @@ function App() {
   if (loading) {
     return (
       <div>
-        <img src={Loading} alt="Loading" />
+        <Loader />
       </div>
     )
   }
 
   return (
     <div ref={ref}>
-      <SnackBar message={error || ''} isOpen={snackBarOpen} onClose={() => setSnackBarOpen(false)} />
-      <SkipList selectedSkip={selectedSkip} setSelectedSkip={setSelectedSkip} setPreviewOpen={setPreviewOpen} skipList={skipList} />
-      <SkipPreview previewOpen={previewOpen} setPreviewOpen={setPreviewOpen} />
+      <SnackBar message={error || ''} isOpen={snackBarOpen} onClose={handleCloseSnackBar} />
+      <SkipList selectedSkip={selectedSkip} setSelectedSkip={setSelectedSkip} setPreviewOpen={handleSetPreviewOpen} skipList={skipList} />
+      <SkipPreview previewOpen={previewOpen} setPreviewOpen={handleSetPreviewOpen} />
     </div>
   )
 }

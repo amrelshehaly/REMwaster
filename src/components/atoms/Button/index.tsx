@@ -9,7 +9,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = React.memo<ButtonProps>(({
   children,
   onClick,
   type = 'button',
@@ -28,6 +28,8 @@ const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;
