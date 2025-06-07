@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    // Enable minification for text compression + minify JS (1,652 KiB savings)
+    minify: 'terser',
     // Improve FCP by optimizing chunks
     rollupOptions: {
       output: {

@@ -20,12 +20,10 @@ const Card = React.memo<CardProps>(({
     selected,
     chip
 }) => {
-    const cardClasses = useMemo(() => [
-        'card',
-        onClick && 'card--clickable',
-        selected && 'card--selected',
-        className
-    ].filter(Boolean).join(' '), [onClick, selected, className]);
+
+    const cardClasses = useMemo(() => 
+        `card ${onClick ? 'card--clickable' : ''} ${className} ${selected ? 'card--selected' : ''}`.trim(), 
+    [onClick, selected, className]);
     
     return (
         <div className={cardClasses} onClick={onClick}>
@@ -35,7 +33,7 @@ const Card = React.memo<CardProps>(({
                     <img 
                         src={image}
                         alt="" 
-                        loading="eager"    
+                        loading="eager"
                         decoding="async"
                         className="card__image" 
                     />
