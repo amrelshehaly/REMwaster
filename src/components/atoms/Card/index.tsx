@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './card.css';
 
 interface CardProps {
@@ -11,7 +11,7 @@ interface CardProps {
     chip?: number;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card = React.memo<CardProps>(({
     children,
     className = '',
     title,
@@ -20,16 +20,33 @@ const Card: React.FC<CardProps> = ({
     selected,
     chip
 }) => {
-    const cardClasses = `card ${onClick ? 'card--clickable' : ''} ${className} ${selected ? 'card--selected' : ''}`.trim();
-
+    const cardClasses = useMemo(() => [
+        'card',
+        onClick && 'card--clickable',
+        selected && 'card--selected',
+        className
+    ].filter(Boolean).join(' '), [onClick, selected, className]);
+    
     return (
         <div className={cardClasses} onClick={onClick}>
             {chip && <div className="card__chip">{chip} Yards</div>}
-            {image && <img src={image} alt="" className="card__image" />}
+            {image && (
+                <div>
+                    <img 
+                        src={image}
+                        alt="" 
+                        loading="eager"    
+                        decoding="async"
+                        className="card__image" 
+                    />
+                </div>
+            )}
             {title && <h3 className="card__title">{title}</h3>}
             <div className="card__content">{children}</div>
         </div>
     );
-};
+});
+
+Card.displayName = 'Card';
 
 export default Card;

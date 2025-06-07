@@ -7,7 +7,7 @@ interface PreviewProps {
   onClose: () => void;
 }
 
-const Preview: React.FC<PreviewProps> = ({ children, isOpen, onClose }) => {
+const Preview = React.memo<PreviewProps>(({ children, isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
@@ -22,6 +22,8 @@ const Preview: React.FC<PreviewProps> = ({ children, isOpen, onClose }) => {
       </div>
     </div>
   );
-};
+});
+
+Preview.displayName = 'Preview';
 
 export default Preview;   

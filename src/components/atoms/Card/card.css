@@ -31,7 +31,19 @@
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 12px;
+  background-image: url('/src/assets/placeholder.png');
 }
+
+/* .card__image-container {
+  position: relative;
+  background-image: url('/src/assets/placeholder.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 200px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+} */
 
 .card__title {
   margin: 0 0 12px 0;

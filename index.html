@@ -2,9 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <meta name="description" content="Skip hire and waste removal services for your project." />
+    <title>Remwaste - Skip Hire Services</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/assets/placeholder.png" as="image" />
+    <link rel="preload" href="/src/index.css" as="style" />
+    
+    <!-- Inline critical CSS for faster rendering -->
+    <!-- <style>
+      /* Critical CSS for initial paint */
+      #root { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+      .container-skip-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); grid-gap: 1rem; }
+    </style> -->
   </head>
   <body>
     <div id="root"></div>
